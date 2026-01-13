@@ -26,7 +26,7 @@ const projectsBrute: Project[] = [
   {
     title: "MidNight",
     description: "Plataforma de fichas de RPG de mesa.",
-    link: "https://tmwcse.vercel.app",
+    link: "https://v1.midnight.marcospilgrim.com.br",
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1755998111/midnight_mbwhbj.png",
     imageAlt: "Screenshot da plataforma de fichas de RPG de mesa.",
@@ -43,18 +43,18 @@ const projectsBrute: Project[] = [
     skills: ["React", "Tailwindcss", "TypeScript"],
     year: 2025,
   },
-  {
-    title: "Antônia Fernandes",
-    description: "Loja online de moda feminina e acessórios.",
-    link: "https://www.antoniafernandestore.com.br",
-    imageSrc:
-      "https://res.cloudinary.com/dgsywmzb2/image/upload/v1756361385/antonia_fernandes_joykyh.png",
-    imageAlt:
-      "Screenshot da loja online de moda feminina e acessórios Antônia Fernandes",
-    skills: ["HTML", "CSS", "Bagy"],
-    year: 2024,
-    company: "Antônia Fernandes Store",
-  },
+  // {
+  //   title: "Antônia Fernandes",
+  //   description: "Loja online de moda feminina e acessórios.",
+  //   link: "https://www.antoniafernandestore.com.br",
+  //   imageSrc:
+  //     "https://res.cloudinary.com/dgsywmzb2/image/upload/v1756361385/antonia_fernandes_joykyh.png",
+  //   imageAlt:
+  //     "Screenshot da loja online de moda feminina e acessórios Antônia Fernandes",
+  //   skills: ["HTML", "CSS", "Bagy"],
+  //   year: 2024,
+  //   company: "Antônia Fernandes Store",
+  // },
   {
     title: "Coconut Links",
     description: "Página de links pessoais estilo Linktree.",
@@ -136,10 +136,21 @@ const projectsBrute: Project[] = [
   {
     title: "Portfólio Procópio",
     description: "Portfólio pessoal do designer Procópio.",
-    link: "https://portcopio.vercel.app",
+    link: "https://procoopio.com.br",
     skills: ["React", "TypeScript", "Tailwindcss", "Cloudinary"],
     year: 2025,
     company: "Arcane JVP",
+  },
+  {
+    title: "MidNight Blue",
+    description:
+      "Evolução da plataforma de fichas de RPG de mesa, reconstruída para maior performance e escalabilidade.",
+    link: "https://v2.midnight.marcospilgrim.com.br",
+    imageSrc:
+      "https://res.cloudinary.com/dgsywmzb2/image/upload/v1768342549/midnight-blue_q9wtz0.png",
+    imageAlt: "Screenshot da plataforma MidNight Blue (v2).",
+    skills: ["Next.js", "Tailwindcss", "TypeScript", "Firebase"],
+    year: 2026,
   },
 ];
 
@@ -154,6 +165,6 @@ export const projectsMainPage = [...projectsReverseSorted].filter((project) =>
     "Mediari Consultoria",
     "Diário de Mariupol",
     "La Tazza",
-    "MidNight",
+    "MidNight Blue",
   ].includes(project.title),
 );
