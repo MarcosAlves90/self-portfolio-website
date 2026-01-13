@@ -163,7 +163,7 @@ export const projectsReverseSorted = [...projectsBrute].sort(
 export const projectsMainPage = [...projectsReverseSorted].filter((project) =>
   [
     "Mediari Consultoria",
-    "Diário de Mariupol",
+    "Portfólio Procópio",
     "La Tazza",
     "MidNight Blue",
   ].includes(project.title),
