@@ -137,6 +137,8 @@ const projectsBrute: Project[] = [
     title: "Portfólio Procópio",
     description: "Portfólio pessoal do designer Procópio.",
     link: "https://procoopio.com.br",
+    imageSrc:
+      "https://res.cloudinary.com/dgsywmzb2/image/upload/v1768343099/procoopio_hs78eu.png",
     skills: ["React", "TypeScript", "Tailwindcss", "Cloudinary"],
     year: 2025,
     company: "Arcane JVP",
