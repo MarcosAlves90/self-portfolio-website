@@ -51,9 +51,14 @@ useHead({
 });
 
 // Smooth scroll helper — usa querySelector para ser mais flexível
+// Também atualiza a seção ativa imediatamente para evitar lacunas visuais
 const scrollTo = (id: string) => {
   const el = document.querySelector<HTMLElement>(`#${id}`);
+  // Marca a seção como ativa imediatamente (boa UX durante scroll suave)
+  activeSection.value = id;
+  // Move com comportamento suave e foca para acessibilidade
   el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  el?.focus({ preventScroll: true });
 };
 
 // hover state para aplicar opacidade nos irmãos quando houver hover em um card
@@ -83,41 +88,51 @@ const updateScreenSize = () => {
   isLargeScreen.value = window.innerWidth >= 1024;
 };
 
+// Nova abordagem: Scroll listener determinístico
+const handleScroll = () => {
+  if (!isLargeScreen.value) return;
+
+  const scrollPos = window.scrollY || window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  const fullHeight = document.documentElement.scrollHeight;
+
+  // 1. Fallback absoluto para o topo
+  if (scrollPos < 100) {
+    activeSection.value = "sobre";
+    return;
+  }
+
+  // 2. Fallback absoluto para o rodapé
+  if (scrollPos + windowHeight >= fullHeight - 50) {
+    activeSection.value = "servicos-preview";
+    return;
+  }
+
+  // 3. Verificação por proximidade do topo
+  const offset = 200;
+  let currentSection = activeSection.value;
+  
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el) {
+      if (scrollPos + offset >= el.offsetTop) {
+        currentSection = id;
+      }
+    }
+  }
+  activeSection.value = currentSection;
+};
+
 onMounted(() => {
   updateScreenSize();
   window.addEventListener("resize", updateScreenSize);
-
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px 0px -100% 0px",
-    threshold: 0,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    let found = false;
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && isLargeScreen.value) {
-        activeSection.value = entry.target.id;
-        found = true;
-      }
-    });
-    // Se nenhuma seção estiver intersectando e for tela grande, manter a última ativa ou setar a primeira
-    if (!found && isLargeScreen.value && activeSection.value === "projetos") {
-      // Manter a última
-    } else if (!found && isLargeScreen.value) {
-      activeSection.value = "sobre";
-    }
-  }, observerOptions);
-
-  sections.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateScreenSize);
-  // O observer será automaticamente desconectado quando o componente for desmontado
+  window.removeEventListener("scroll", handleScroll);
 });
 </script>
 
