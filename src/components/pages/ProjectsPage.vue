@@ -8,9 +8,9 @@ import ProjectsTable from "@/components/organisms/ProjectsTable.vue";
 import { projectsReverseSorted } from "@/data/projects";
 
 useSEO({
-  title: "Todos os Projetos",
+  title: "Todos os Projetos — Portfólio de Desenvolvimento Web",
   description:
-    "Veja todos os projetos desenvolvidos por Marcos Lopes, incluindo detalhes sobre tecnologias utilizadas e links para os projetos.",
+    "Portfólio de projetos de desenvolvimento web por Marcos Pilgrim (React, Next.js, Vue.js). Cases com tecnologias, resultados e links para demonstração.",
   canonicalPath: "/projetos",
 });
 
@@ -81,7 +81,7 @@ const formatLink = (link?: string) => {
         <nav aria-label="Voltar para página inicial">
           <CommonLink
             to="/"
-            label="Marcos Lopes"
+            label="Marcos Pilgrim"
             aria-label="Voltar para a página inicial"
             icon-position="left"
             icon-class="bi bi-arrow-left"

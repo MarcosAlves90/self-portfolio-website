@@ -6,9 +6,9 @@ import CommonLink from "@/components/atoms/CommonLink.vue";
 import { serviceCategories } from "@/data/services";
 
 useSEO({
-  title: "Serviços e Preços",
+  title: "Serviços e Preços — Desenvolvimento Web, Apps e Software",
   description:
-    "Confira os serviços de desenvolvimento web, aplicativos e software oferecidos por Marcos Lopes. Soluções personalizadas com preços competitivos.",
+    "Serviços de desenvolvimento web, aplicativos e software por Marcos Pilgrim. Solicite orçamento, contrate soluções para landing pages, e-commerces e sistemas sob medida.",
   canonicalPath: "/servicos",
 });
 
@@ -66,7 +66,7 @@ const slug = (s: string) =>
         <nav aria-label="Voltar para página inicial">
           <CommonLink
             to="/"
-            label="Marcos Lopes"
+            label="Marcos Pilgrim"
             aria-label="Voltar para a página inicial"
             icon-position="left"
             icon-class="bi bi-arrow-left"

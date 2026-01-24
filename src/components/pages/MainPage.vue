@@ -13,9 +13,9 @@ import { serviceCategories } from "@/data/services";
 import { ref, onMounted, onUnmounted } from "vue";
 
 useSEO({
-  title: "Desenvolvedor Full Stack, Designer Gráfico e Escritor",
+  title: "Desenvolvedor Full Stack | Desenvolvimento Web e Design Gráfico",
   description:
-    "Marcos Lopes é um desenvolvedor full-stack, designer gráfico e escritor. Explore sua experiência, projetos e habilidades em desenvolvimento web.",
+    "Marcos Pilgrim — desenvolvedor full-stack e designer gráfico. Contrate desenvolvimento web, landing pages e aplicações com foco em performance, conversão e manutenção técnica.",
   canonicalPath: "/",
 });
 
@@ -51,9 +51,14 @@ useHead({
 });
 
 // Smooth scroll helper — usa querySelector para ser mais flexível
+// Também atualiza a seção ativa imediatamente para evitar lacunas visuais
 const scrollTo = (id: string) => {
   const el = document.querySelector<HTMLElement>(`#${id}`);
+  // Marca a seção como ativa imediatamente (boa UX durante scroll suave)
+  activeSection.value = id;
+  // Move com comportamento suave e foca para acessibilidade
   el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  el?.focus({ preventScroll: true });
 };
 
 // hover state para aplicar opacidade nos irmãos quando houver hover em um card
@@ -83,41 +88,51 @@ const updateScreenSize = () => {
   isLargeScreen.value = window.innerWidth >= 1024;
 };
 
+// Nova abordagem: Scroll listener determinístico
+const handleScroll = () => {
+  if (!isLargeScreen.value) return;
+
+  const scrollPos = window.scrollY || window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  const fullHeight = document.documentElement.scrollHeight;
+
+  // 1. Fallback absoluto para o topo
+  if (scrollPos < 100) {
+    activeSection.value = "sobre";
+    return;
+  }
+
+  // 2. Fallback absoluto para o rodapé
+  if (scrollPos + windowHeight >= fullHeight - 50) {
+    activeSection.value = "servicos-preview";
+    return;
+  }
+
+  // 3. Verificação por proximidade do topo
+  const offset = 200;
+  let currentSection = activeSection.value;
+  
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el) {
+      if (scrollPos + offset >= el.offsetTop) {
+        currentSection = id;
+      }
+    }
+  }
+  activeSection.value = currentSection;
+};
+
 onMounted(() => {
   updateScreenSize();
   window.addEventListener("resize", updateScreenSize);
-
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px 0px -100% 0px",
-    threshold: 0,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    let found = false;
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && isLargeScreen.value) {
-        activeSection.value = entry.target.id;
-        found = true;
-      }
-    });
-    // Se nenhuma seção estiver intersectando e for tela grande, manter a última ativa ou setar a primeira
-    if (!found && isLargeScreen.value && activeSection.value === "projetos") {
-      // Manter a última
-    } else if (!found && isLargeScreen.value) {
-      activeSection.value = "sobre";
-    }
-  }, observerOptions);
-
-  sections.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateScreenSize);
-  // O observer será automaticamente desconectado quando o componente for desmontado
+  window.removeEventListener("scroll", handleScroll);
 });
 </script>
 
@@ -133,7 +148,7 @@ onUnmounted(() => {
       >
         <div class="space-y-3 max-lg:mb-10">
           <h1 class="text-3xl lg:text-5xl font-semibold">
-            Marcos Lopes
+            Marcos Pilgrim
           </h1>
           <h2 class="text-lg lg:text-xl font-medium">
             Desenvolvedor Full Stack
@@ -280,12 +295,12 @@ onUnmounted(() => {
     <div class="space-y-8 lg:space-y-12 w-full py-8 lg:py-16">
       <section id="sobre" class="lg:px-4" aria-labelledby="sobre-heading">
         <StickySectionBar section-id="sobre" label="Sobre" />
-        <h3
+        <h2
           id="sobre-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Sobre
-        </h3>
+        </h2>
         <p class="text-secondary">
           Profissional com experiência em desenvolvimento web, design gráfico e
           produção de conteúdo, atuando em projetos próprios, acadêmicos e
@@ -302,12 +317,12 @@ onUnmounted(() => {
         aria-labelledby="experiencia-heading"
       >
         <StickySectionBar section-id="experiencia" label="Experiência" />
-        <h3
+        <h2
           id="experiencia-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Experiência
-        </h3>
+        </h2>
         <div class="max-lg:space-y-10">
           <article
             v-for="(experience, i) in experiences"
@@ -351,12 +366,12 @@ onUnmounted(() => {
         aria-labelledby="projetos-heading"
       >
         <StickySectionBar section-id="projetos" label="Projetos" />
-        <h3
+        <h2
           id="projetos-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Projetos
-        </h3>
+        </h2>
         <div class="max-lg:space-y-10">
           <article
             v-for="(project, j) in projectsMainPage"
