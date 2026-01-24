@@ -20,7 +20,7 @@ export function useSEO(config: SEOConfig) {
 
   useHead({
     title: config.title,
-    titleTemplate: (title) => `${title} - Marcos Lopes`,
+    titleTemplate: (title) => `${title} - Marcos Pilgrim`,
     link: [
       {
         rel: "canonical",
@@ -66,7 +66,7 @@ export function useSEO(config: SEOConfig) {
       },
       {
         property: "og:image:alt",
-        content: "Marcos Lopes - Portfólio Digital",
+        content: "Marcos Pilgrim - Portfólio Digital",
       },
       {
         property: "og:locale",
@@ -90,11 +90,11 @@ export function useSEO(config: SEOConfig) {
       },
       {
         name: "twitter:image:alt",
-        content: "Marcos Lopes - Portfólio Digital",
+        content: "Marcos Pilgrim - Portfólio Digital",
       },
       {
         property: "twitter:domain",
-        content: "marcos-lopes-portfolio.vercel.app",
+        content: "marcospilgrim.com.br",
       },
       {
         property: "twitter:url",
@@ -108,12 +108,12 @@ export function generatePersonSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Marcos Lopes",
+    name: "Marcos Pilgrim",
     url: "https://marcospilgrim.com.br",
     jobTitle: "Full Stack Developer, Graphic Designer, Writer",
     description:
-      "Portfólio digital de Marcos Lopes, desenvolvedor full-stack, designer gráfico e escritor.",
-    image: "https://marcospilgrim.com.br/marcos_lopes_portfolio_og_image.webp",
+      "Portfólio digital de Marcos Pilgrim, desenvolvedor full-stack, designer gráfico e escritor.",
+    image: "https://marcospilgrim.com.br/marcos_pilgrim_portfolio_og_image.webp",
     sameAs: [
       "https://github.com/MarcosAlves90",
       "https://www.linkedin.com/in/marcos-alves-dev",
@@ -145,16 +145,42 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Marcos Lopes Portfolio",
+    name: "Marcos Pilgrim Portfolio",
     url: "https://marcospilgrim.com.br",
-    logo: "https://marcospilgrim.com.br/marcos_lopes_portfolio_og_image.webp",
+    logo: "https://marcospilgrim.com.br/marcos_pilgrim_portfolio_og_image.webp",
     description:
-      "Portfólio digital de Marcos Lopes, desenvolvedor full-stack, designer gráfico e escritor.",
+      "Portfólio digital de Marcos Pilgrim, desenvolvedor full-stack, designer gráfico e escritor.",
     sameAs: [
       "https://github.com/MarcosAlves90",
       "https://www.linkedin.com/in/marcos-alves-dev",
       "https://www.instagram.com/marcos.pilgrim",
     ],
+  };
+}
+
+export function generateContactPointSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPoint",
+    telephone: "+5511949273886",
+    contactType: "sales",
+    email: "marcos.a.lopes7701@gmail.com",
+    areaServed: "BR",
+    availableLanguage: ["Português"],
+  };
+}
+
+export function generateWebsiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: "https://marcospilgrim.com.br",
+    name: seoConfig.site.name,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://marcospilgrim.com.br/?s={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 

@@ -11,9 +11,11 @@ const routes = [
     meta: {
       title: "Desenvolvedor Full Stack, Designer Gráfico e Escritor",
       description:
-        "Marcos Lopes é um desenvolvedor full-stack, designer gráfico e escritor. Explore sua experiência, projetos e habilidades em desenvolvimento web.",
+        "Marcos Pilgrim — desenvolvedor full-stack e designer gráfico focado em performance e conversão. Contrate serviços e veja projetos com resultados.",
     },
   },
+
+
   {
     path: "/projetos",
     name: "Projects",
@@ -21,7 +23,7 @@ const routes = [
     meta: {
       title: "Todos os Projetos",
       description:
-        "Veja todos os projetos desenvolvidos por Marcos Lopes, incluindo detalhes sobre tecnologias utilizadas e links para os projetos.",
+        "Veja todos os projetos desenvolvidos por Marcos Pilgrim, incluindo detalhes sobre tecnologias utilizadas e links para os projetos.",
     },
   },
   {
@@ -31,7 +33,7 @@ const routes = [
     meta: {
       title: "Serviços e Preços",
       description:
-        "Confira os serviços de desenvolvimento web, aplicativos e software oferecidos por Marcos Lopes.",
+        "Confira os serviços de desenvolvimento web, aplicativos e software oferecidos por Marcos Pilgrim.",
     },
   },
 ];

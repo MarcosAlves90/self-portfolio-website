@@ -13,9 +13,9 @@ import { serviceCategories } from "@/data/services";
 import { ref, onMounted, onUnmounted } from "vue";
 
 useSEO({
-  title: "Desenvolvedor Full Stack, Designer Gráfico e Escritor",
+  title: "Desenvolvedor Full Stack | Desenvolvimento Web e Design Gráfico",
   description:
-    "Marcos Lopes é um desenvolvedor full-stack, designer gráfico e escritor. Explore sua experiência, projetos e habilidades em desenvolvimento web.",
+    "Marcos Pilgrim — desenvolvedor full-stack e designer gráfico. Contrate desenvolvimento web, landing pages e aplicações com foco em performance, conversão e manutenção técnica.",
   canonicalPath: "/",
 });
 
@@ -133,7 +133,7 @@ onUnmounted(() => {
       >
         <div class="space-y-3 max-lg:mb-10">
           <h1 class="text-3xl lg:text-5xl font-semibold">
-            Marcos Lopes
+            Marcos Pilgrim
           </h1>
           <h2 class="text-lg lg:text-xl font-medium">
             Desenvolvedor Full Stack
@@ -280,12 +280,12 @@ onUnmounted(() => {
     <div class="space-y-8 lg:space-y-12 w-full py-8 lg:py-16">
       <section id="sobre" class="lg:px-4" aria-labelledby="sobre-heading">
         <StickySectionBar section-id="sobre" label="Sobre" />
-        <h3
+        <h2
           id="sobre-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Sobre
-        </h3>
+        </h2>
         <p class="text-secondary">
           Profissional com experiência em desenvolvimento web, design gráfico e
           produção de conteúdo, atuando em projetos próprios, acadêmicos e
@@ -302,12 +302,12 @@ onUnmounted(() => {
         aria-labelledby="experiencia-heading"
       >
         <StickySectionBar section-id="experiencia" label="Experiência" />
-        <h3
+        <h2
           id="experiencia-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Experiência
-        </h3>
+        </h2>
         <div class="max-lg:space-y-10">
           <article
             v-for="(experience, i) in experiences"
@@ -351,12 +351,12 @@ onUnmounted(() => {
         aria-labelledby="projetos-heading"
       >
         <StickySectionBar section-id="projetos" label="Projetos" />
-        <h3
+        <h2
           id="projetos-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
           Projetos
-        </h3>
+        </h2>
         <div class="max-lg:space-y-10">
           <article
             v-for="(project, j) in projectsMainPage"
