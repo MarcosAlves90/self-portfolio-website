@@ -3,6 +3,7 @@ import { useHead } from "@vueuse/head";
 import { useSEO, generateBreadcrumbSchema } from "@/composables/useSEO";
 import { ref, computed } from "vue";
 import CommonLink from "@/components/atoms/CommonLink.vue";
+import BackToTop from "@/components/atoms/BackToTop.vue";
 import { serviceCategories } from "@/data/services";
 
 useSEO({
@@ -57,6 +58,8 @@ const slug = (s: string) =>
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '-')
     .replace(/[^\w-]/g, '');
+
+// Componente BackToTop lida com exibição e scroll
 </script>
 
 <template>
@@ -171,5 +174,7 @@ const slug = (s: string) =>
         </section>
       </div>
     </div>
+
+    <BackToTop />
   </main>
 </template>
