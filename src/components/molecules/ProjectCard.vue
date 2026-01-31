@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from 'vue-i18n';
 import { optimizeCloudinaryUrl, generateCloudinarySrcSet } from "@/utils/cloudinary";
 import CardBase from "@/components/templates/CardBase.vue";
+
+const { t } = useI18n();
 
 const props = defineProps<{
   imageSrc: string;
@@ -40,7 +43,7 @@ const srcset = computed(() => {
       <div
         class="w-38 aspect-video overflow-hidden rounded shrink-0 bg-muted border-2 border-tertiary"
         role="img"
-        :aria-label="props.imageAlt ?? props.title"
+        :aria-label="props.imageAlt ?? t('projects.card.imageAltFallback', { title: props.title })"
       >
         <img
           :src="src"
@@ -73,7 +76,7 @@ const srcset = computed(() => {
           {{ props.description }}
         </p>
       </div>
-      <ul class="flex flex-wrap gap-2 text-sm" role="list" aria-label="Tecnologias utilizadas">
+      <ul class="flex flex-wrap gap-2 text-sm" role="list" :aria-label="t('projects.card.technologiesLabel')">
         <li
           v-for="skill in props.skills"
           :key="skill"

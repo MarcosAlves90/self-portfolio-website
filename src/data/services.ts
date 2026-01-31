@@ -1,4 +1,5 @@
 export interface ServiceTier {
+  id?: string;
   name: string;
   description: string; // Short description for the tier
   price: string;
@@ -7,6 +8,7 @@ export interface ServiceTier {
 }
 
 export interface ServiceCategory {
+  id?: string;
   title: string;
   description: string;
   icon: string; // Bootstrap icon class
@@ -15,11 +17,13 @@ export interface ServiceCategory {
 
 export const serviceCategories: ServiceCategory[] = [
   {
+    id: "web-development",
     title: "Desenvolvimento Web",
     description: "Transforme visitantes em clientes com sites de alta performance, design persuasivo e otimização para o Google.",
     icon: "bi-globe",
     tiers: [
       {
+        id: "essential",
         name: "Essencial (Landing Page)",
         description: "Ideal para campanhas e captura de leads. Foco total em conversão.",
         price: "R$ 900",
@@ -32,6 +36,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "professional",
         name: "Profissional (Institucional)",
         description: "Para empresas que buscam autoridade e posicionamento digital sólido.",
         price: "R$ 1.400",
@@ -45,6 +50,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "ecommerce",
         name: "E-commerce / Portal",
         description: "Venda online ou gerencie grandes volumes de conteúdo com robustez.",
         price: "R$ 2.400",
@@ -59,11 +65,13 @@ export const serviceCategories: ServiceCategory[] = [
     ],
   },
   {
+    id: "mobile-apps",
     title: "Aplicativos Mobile",
     description: "Esteja no bolso do seu cliente. Apps nativos e híbridos com experiência de usuário (UX) viciante.",
     icon: "bi-phone",
     tiers: [
       {
+        id: "mvp",
         name: "MVP (Produto Mínimo Viável)",
         description: "Valide sua ideia de startup rápido e com baixo custo.",
         price: "R$ 2.000",
@@ -76,6 +84,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "growth",
         name: "App Growth",
         description: "Para apps prontos para escalar e conquistar o mercado.",
         price: "R$ 5.000",
@@ -89,6 +98,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "enterprise",
         name: "Enterprise / Super App",
         description: "Ecossistemas complexos com múltiplas integrações e IA.",
         price: "R$ 10.000",
@@ -103,11 +113,13 @@ export const serviceCategories: ServiceCategory[] = [
     ],
   },
   {
+    id: "software-systems",
     title: "Software & Sistemas",
     description: "Automatize processos, reduza custos e elimine erros humanos com software sob medida.",
     icon: "bi-cpu",
     tiers: [
       {
+        id: "desktop-automation",
         name: "Automação Desktop",
         description: "Scripts e programas para tarefas repetitivas locais.",
         price: "R$ 500",
@@ -120,6 +132,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "saas",
         name: "Sistema de Gestão (SaaS)",
         description: "Centralize a operação da sua empresa na nuvem.",
         price: "R$ 1.500",
@@ -133,6 +146,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "enterprise-solution",
         name: "Solução Enterprise",
         description: "Software robusto para grandes operações e alta demanda.",
         price: "R$ 5.500",
@@ -147,11 +161,13 @@ export const serviceCategories: ServiceCategory[] = [
     ],
   },
   {
+    id: "maintenance-support",
     title: "Manutenção e Suporte",
     description: "Tranquilidade total. Mantenha seu projeto seguro, atualizado e funcionando 24/7.",
     icon: "bi-tools",
     tiers: [
       {
+        id: "hourly",
         name: "Hora Técnica Avulsa",
         description: "Para ajustes pontuais, correções ou consultoria rápida.",
         price: "R$ 60,00 / hora",
@@ -164,6 +180,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "monthly-basic",
         name: "Pacote Mensal (Básico)",
         description: "Garanta prioridade e monitoramento constante.",
         price: "R$ 300 / mês",
@@ -177,6 +194,7 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
+        id: "sustaining-full",
         name: "Sustentação Full",
         description: "Sua equipe de TI terceirizada.",
         price: "R$ 1.000 / mês",

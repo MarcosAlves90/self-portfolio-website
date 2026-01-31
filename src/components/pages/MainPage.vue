@@ -5,6 +5,7 @@ import CommonLink from "@/components/atoms/CommonLink.vue";
 import StickySectionBar from "@/components/atoms/StickySectionBar.vue";
 import SocialLinks from "@/components/atoms/SocialLinks.vue";
 import { useHead } from "@vueuse/head";
+import { useI18n } from 'vue-i18n';
 import { RouterLink } from 'vue-router';
 import { useSEO, generatePersonSchema, generateBreadcrumbSchema, generateProjectSchema } from "@/composables/useSEO";
 import { experiences } from "@/data/experiences";
@@ -12,10 +13,11 @@ import { projectsMainPage } from "@/data/projects";
 import { serviceCategories } from "@/data/services";
 import { ref, onMounted, onUnmounted } from "vue";
 
+const { t } = useI18n();
+
 useSEO({
-  title: "Desenvolvedor Full Stack | Desenvolvimento Web e Design Gráfico",
-  description:
-    "Marcos Pilgrim — desenvolvedor full-stack e designer gráfico. Contrate desenvolvimento web, landing pages e aplicações com foco em performance, conversão e manutenção técnica.",
+  title: t('home.seo.title'),
+  description: t('home.seo.description'),
   canonicalPath: "/",
 });
 
@@ -151,11 +153,10 @@ onUnmounted(() => {
             Marcos Pilgrim
           </h1>
           <h2 class="text-lg lg:text-xl font-medium">
-            Desenvolvedor Full Stack
-          </h2>
+            {{ $t('home.subtitle') }}
+          </h2> 
           <p class="text-secondary lg:max-w-xs w-full">
-            Sou um desenvolvedor full-stack, designer gráfico e escritor que
-            está sempre disposto a encarar desafios.
+            {{ $t('home.intro') }}
           </p>
 
           <nav aria-label="Navegação da página">
@@ -187,7 +188,7 @@ onUnmounted(() => {
                         ? 'text-primary'
                         : 'text-tertiary group-hover:text-primary',
                     ]"
-                  >SOBRE</span>
+                  >{{ $t('home.nav.about') }}</span>
                 </a>
               </li>
 
@@ -218,7 +219,7 @@ onUnmounted(() => {
                         ? 'text-primary'
                         : 'text-tertiary group-hover:text-primary',
                     ]"
-                  >EXPERIÊNCIA</span>
+                  >{{ $t('home.nav.experience') }}</span>
                 </a>
               </li>
 
@@ -249,7 +250,7 @@ onUnmounted(() => {
                         ? 'text-primary'
                         : 'text-tertiary group-hover:text-primary',
                     ]"
-                  >PROJETOS</span>
+                  >{{ $t('home.nav.projects') }}</span>
                 </a>
               </li>
 
@@ -280,7 +281,7 @@ onUnmounted(() => {
                         ? 'text-primary'
                         : 'text-tertiary group-hover:text-primary',
                     ]"
-                  >SERVIÇOS</span>
+                  >{{ $t('home.nav.services') }}</span>
                 </a>
               </li>
             </ul>
@@ -294,20 +295,15 @@ onUnmounted(() => {
     <!-- Conteúdo principal: seções semânticas -->
     <div class="space-y-8 lg:space-y-12 w-full py-8 lg:py-16">
       <section id="sobre" class="lg:px-4" aria-labelledby="sobre-heading">
-        <StickySectionBar section-id="sobre" label="Sobre" />
+        <StickySectionBar section-id="sobre" :label="$t('home.section.about')" />
         <h2
           id="sobre-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
-          Sobre
-        </h2>
+          {{ $t('home.section.about') }}
+        </h2> 
         <p class="text-secondary">
-          Profissional com experiência em desenvolvimento web, design gráfico e
-          produção de conteúdo, atuando em projetos próprios, acadêmicos e
-          freelances. Foco em soluções modernas, interfaces responsivas e
-          integrações com serviços em nuvem. Formação técnica e superior em
-          desenvolvimento de software, com domínio de tecnologias como
-          JavaScript, Vue.js, React.js, Java, Python e metodologias ágeis.
+          {{ $t('home.about.description') }}
         </p>
       </section>
 
@@ -316,12 +312,12 @@ onUnmounted(() => {
         class="space-y-2"
         aria-labelledby="experiencia-heading"
       >
-        <StickySectionBar section-id="experiencia" label="Experiência" />
+        <StickySectionBar section-id="experiencia" :label="$t('home.section.experience')" />
         <h2
           id="experiencia-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
-          Experiência
+          {{ $t('home.section.experience') }}
         </h2>
         <div class="max-lg:space-y-10">
           <article
@@ -354,8 +350,8 @@ onUnmounted(() => {
 
       <CommonLink
         href="https://res.cloudinary.com/dgsywmzb2/image/upload/v1755999385/curriculo-marcos_lopes.pdf"
-        label="Ver currículo completo"
-        aria-label="Abrir currículo completo em nova aba"
+        :label="$t('home.resumeLabel')"
+        :aria-label="$t('home.resumeAriaLabel')"
         icon-position="right"
         icon-class="bi bi-box-arrow-up-right"
       />
@@ -365,13 +361,13 @@ onUnmounted(() => {
         class="space-y-2"
         aria-labelledby="projetos-heading"
       >
-        <StickySectionBar section-id="projetos" label="Projetos" />
+        <StickySectionBar section-id="projetos" :label="$t('home.section.projects')" />
         <h2
           id="projetos-heading"
           class="max-lg:uppercase lg:sr-only font-semibold pb-6"
         >
-          Projetos
-        </h2>
+          {{ $t('home.section.projects') }}
+        </h2> 
         <div class="max-lg:space-y-10">
           <article
             v-for="(project, j) in projectsMainPage"
@@ -404,18 +400,18 @@ onUnmounted(() => {
 
       <CommonLink
         to="/projetos"
-        label="Ver todos os projetos"
-        aria-label="Ver todos os projetos"
+        :label="$t('home.viewAllProjects')"
+        :aria-label="$t('home.viewAllProjectsAria')"
         icon-position="right"
       />
 
       <section id="servicos-preview" class="space-y-4 lg:space-y-6">
-        <StickySectionBar section-id="servicos-preview" label="Serviços" />
+        <StickySectionBar section-id="servicos-preview" :label="$t('home.section.services')" />
         <div class="grid grid-cols-1 gap-4">
           <RouterLink
             v-for="(cat, idx) in servicesPreview"
             :key="`service-${idx}`"
-            :to="{ path: '/servicos', hash: '#' + slug(cat.title) }"
+            :to="{ path: '/servicos', hash: '#' + slug(t(`services.categories.${cat.id}.title`)) }"
             :class="[
               'block no-underline transition-opacity duration-200',
               hoveredService === null ? 'opacity-100' : hoveredService === idx ? 'opacity-100' : 'opacity-40'
@@ -431,10 +427,10 @@ onUnmounted(() => {
                 <i :class="['bi text-2xl text-highlight', cat.icon]" aria-hidden="true" />
                 <div>
                   <h4 class="font-semibold text-primary">
-                    {{ cat.title }}
+                    {{ $t(`services.categories.${cat.id}.title`) }}
                   </h4>
                   <p class="text-secondary text-sm mt-1">
-                    {{ cat.description }}
+                    {{ $t(`services.categories.${cat.id}.description`) }}
                   </p>
                 </div>
               </div>
@@ -445,8 +441,8 @@ onUnmounted(() => {
 
       <CommonLink
         to="/servicos"
-        label="Ver todos os serviços"
-        aria-label="Ver todos os serviços"
+        :label="$t('home.viewAllServices')"
+        :aria-label="$t('home.viewAllServicesAria')"
         icon-position="right"
       />
     </div>

@@ -2,15 +2,17 @@
 import { useHead } from "@vueuse/head";
 import { useSEO, generateBreadcrumbSchema, generateProjectSchema } from "@/composables/useSEO";
 import { ref, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import BackToTop from "@/components/atoms/BackToTop.vue";
 import CommonLink from "@/components/atoms/CommonLink.vue";
 import ProjectsTable from "@/components/organisms/ProjectsTable.vue";
 import { projectsReverseSorted } from "@/data/projects";
 
+const { t } = useI18n();
+
 useSEO({
-  title: "Todos os Projetos — Portfólio de Desenvolvimento Web",
-  description:
-    "Portfólio de projetos de desenvolvimento web por Marcos Pilgrim (React, Next.js, Vue.js). Cases com tecnologias, resultados e links para demonstração.",
+  title: t('projects.seo.title'),
+  description: t('projects.seo.description'),
   canonicalPath: "/projetos",
 });
 
@@ -26,7 +28,7 @@ useHead({
             url: "https://marcospilgrim.com.br/",
           },
           {
-            name: "Projetos",
+            name: t('projects.breadcrumbName'),
             url: "https://marcospilgrim.com.br/projetos",
           },
         ])
@@ -90,7 +92,7 @@ const formatLink = (link?: string) => {
           />
         </nav>
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold">
-          Todos os Projetos
+          {{ $t('projects.heading') }}
         </h1>
       </div>
     </div>
@@ -98,7 +100,7 @@ const formatLink = (link?: string) => {
     <div class="max-w-6xl w-full pb-8 md:pb-10">
       <div class="mb-8">
         <form role="search" class="relative" @submit.prevent>
-          <label for="project-search" class="sr-only">Buscar projetos</label>
+          <label for="project-search" class="sr-only">{{ $t('projects.search.label') }}</label>
           <i
             class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary"
             aria-hidden="true"
@@ -107,9 +109,9 @@ const formatLink = (link?: string) => {
             id="project-search"
             v-model="searchTerm"
             type="search"
-            placeholder="Buscar projetos por nome, descrição, tecnologia ou empresa..."
+            :placeholder="$t('projects.search.placeholder')"
             class="w-full pl-10 pr-4 py-3 bg-transparent border border-tertiary rounded-lg text-primary placeholder-secondary focus:outline-none focus:border-highlight focus:ring-1 focus:ring-highlight transition-colors duration-200"
-            aria-label="Buscar projetos"
+            :aria-label="$t('projects.search.ariaLabel')"
           >
         </form>
       </div>

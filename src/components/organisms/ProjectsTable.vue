@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import type { Project } from "@/data/types";
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   projects: Project[];
   formatLink: (link?: string) => string;
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -12,33 +15,23 @@ const props = defineProps<{
     v-if="projects.length > 0"
     class="w-full"
     role="table"
-    aria-label="Tabela de projetos"
+    :aria-label="t('projects.table.aria.tableLabel')"
   >
     <thead>
       <tr>
-        <th scope="col">
-          Ano
-        </th>
-        <th scope="col">
-          Projeto
-        </th>
-        <th scope="col" class="hidden lg:table-cell">
-          Empresa
-        </th>
-        <th scope="col" class="hidden lg:table-cell">
-          Desenvolvido com
-        </th>
-        <th scope="col" class="hidden sm:table-cell">
-          Link
-        </th>
+        <th scope="col">{{ $t('projects.table.headers.year') }}</th>
+        <th scope="col">{{ $t('projects.table.headers.project') }}</th>
+        <th scope="col" class="hidden lg:table-cell">{{ $t('projects.table.headers.company') }}</th>
+        <th scope="col" class="hidden lg:table-cell">{{ $t('projects.table.headers.technologies') }}</th>
+        <th scope="col" class="hidden sm:table-cell">{{ $t('projects.table.headers.link') }}</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(project, index) in projects" :key="`${project.title}-${project.year || 'na'}-${index}`" role="row">
-        <td role="cell" class="text-tertiary" data-label="Ano">
-          {{ project.year || "N/A" }}
+        <td role="cell" class="text-tertiary" :data-label="$t('projects.table.headers.year')">
+          {{ project.year || $t('projects.table.na') }}
         </td>
-        <td role="cell" class="font-semibold" data-label="Projeto">
+        <td role="cell" class="font-semibold" :data-label="$t('projects.table.headers.project')">
           <template v-if="project.link">
             <!-- Link visível apenas em telas pequenas (coluna de link está oculta) -->
             <a
@@ -46,7 +39,7 @@ const props = defineProps<{
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center group cursor-pointer text-highlight hover:text-primary sm:hidden relative"
-              :aria-label="`Abrir ${project.title} (abre em nova aba)`"
+              :aria-label="t('projects.table.aria.open', { title: project.title })"
               :title="project.description"
             >
               <span>{{ project.title }}</span>
@@ -65,10 +58,10 @@ const props = defineProps<{
             }}</span>
           </template>
         </td>
-        <td role="cell" class="text-tertiary hidden lg:table-cell" data-label="Empresa">
+        <td role="cell" class="text-tertiary hidden lg:table-cell" :data-label="$t('projects.table.headers.company')">
           {{ project.company }}
         </td>
-        <td role="cell" class="hidden lg:table-cell" data-label="Tecnologias">
+        <td role="cell" class="hidden lg:table-cell" :data-label="$t('projects.table.headers.technologies')">
           <ul class="flex flex-wrap gap-2 text-sm" role="list">
             <li
               v-for="skill in project.skills"
@@ -80,14 +73,14 @@ const props = defineProps<{
             </li>
           </ul>
         </td>
-        <td role="cell" class="hidden sm:table-cell" data-label="Link">
+        <td role="cell" class="hidden sm:table-cell" :data-label="$t('projects.table.headers.link')">
           <a
             v-if="project.link"
             :href="project.link"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center group cursor-pointer text-highlight hover:text-primary"
-            :aria-label="`Ir para ${project.title}`"
+            :aria-label="t('projects.table.aria.goTo', { title: project.title })"
           >
             <span>{{ props.formatLink(project.link) }}</span>
             <i
@@ -95,7 +88,7 @@ const props = defineProps<{
               aria-hidden="true"
             />
           </a>
-          <span v-else>N/A</span>
+          <span v-else>{{ $t('projects.table.na') }}</span>
         </td>
       </tr>
     </tbody>
@@ -109,10 +102,10 @@ const props = defineProps<{
   >
     <i class="bi bi-search text-4xl text-tertiary mb-4" aria-hidden="true" />
     <p class="text-secondary">
-      Nenhum projeto encontrado
+      {{ $t('projects.table.noResults') }}
     </p>
     <p class="text-tertiary text-sm mt-2">
-      Tente buscar por nome, tecnologia ou empresa
+      {{ $t('projects.table.noResultsHint') }}
     </p>
   </div>
 </template>

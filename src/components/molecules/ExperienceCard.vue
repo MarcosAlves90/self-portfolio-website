@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import CardBase from "@/components/templates/CardBase.vue";
 
 const props = defineProps<{
@@ -8,12 +9,14 @@ const props = defineProps<{
   skills: string[];
   link?: string;
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
   <CardBase :link="props.link">
     <template #leading>
-      <p class="text-sm min-w-30 text-tertiary" aria-label="Período">
+      <p class="text-sm min-w-30 text-tertiary" :aria-label="t('experience.card.periodLabel')">
         {{ props.period }}
       </p>
     </template>
@@ -37,7 +40,7 @@ const props = defineProps<{
           {{ props.description }}
         </p>
       </div>
-      <ul class="flex flex-wrap gap-2 text-sm" role="list" aria-label="Tecnologias utilizadas">
+      <ul class="flex flex-wrap gap-2 text-sm" role="list" :aria-label="t('experience.card.technologiesLabel')">
         <li
           v-for="skill in props.skills"
           :key="skill"
