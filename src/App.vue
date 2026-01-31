@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import CursorLight from "@/components/atoms/CursorLight.vue";
+import ScrollProgressBar from "@/components/atoms/ScrollProgressBar.vue";
 </script>
 
 <template>
   <div class="app-root">
+    <ScrollProgressBar />
     <div className="grain" />
     <CursorLight />
     <div class="content">

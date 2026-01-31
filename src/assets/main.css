@@ -101,24 +101,48 @@ body {
   color: var(--color-primary);
 }
 
+/* Custom scrollbar (WebKit) */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: transparent;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-highlight);
+  background-color: rgba(30, 115, 190, 0.9);
   border-radius: 10px;
-  border: 3px solid var(--color-background);
+  /* use inset shadow instead of border to avoid extra layout cost */
+  box-shadow: inset 0 0 0 3px var(--color-background);
+  transition: background-color 120ms linear, opacity 120ms linear;
+  opacity: 0.9;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary);
+  opacity: 1;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-highlight) transparent;
+  scrollbar-gutter: stable;
+}
+
+/* Prevent layout shifts when scrollbar appears/disappears */
+body {
+  scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Granulado de fundo */
