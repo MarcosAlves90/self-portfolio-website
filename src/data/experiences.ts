@@ -2,6 +2,7 @@ import { Experience } from "./types";
 
 export const experiences: Experience[] = [
   {
+    id: "freelancer-projects",
     period: "2024-PRESENTE",
     title: "Freelancer e Projetos Pessoais",
     description:
@@ -16,6 +17,7 @@ export const experiences: Experience[] = [
     link: "https://www.instagram.com/marcos.pilgrim",
   },
   {
+    id: "fatec-maua",
     period: "2024-2026",
     title: "Tecnólogo em Software - Fatec Mauá",
     description:
@@ -24,6 +26,7 @@ export const experiences: Experience[] = [
     link: "https://www.fatecmaua.com.br",
   },
   {
+    id: "etec-mcm",
     period: "2022-2023",
     title: "Técnico em Informática - Etec MCM",
     description:

@@ -11,9 +11,21 @@ import { useSEO, generatePersonSchema, generateBreadcrumbSchema, generateProject
 import { experiences } from "@/data/experiences";
 import { projectsMainPage } from "@/data/projects";
 import { serviceCategories } from "@/data/services";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+
+// Persist locale changes and set document language for accessibility
+watch(locale, (val) => {
+  if (typeof window !== 'undefined') localStorage.setItem('locale', val as string);
+  if (typeof document !== 'undefined') document.documentElement.lang = val === 'pt' ? 'pt-BR' : 'en-US';
+});
+
+// Helper to return localized string when available (falls back to provided value)
+const localize = (key: string, fallback: string) => {
+  const res = t(key);
+  return res && res !== key ? (res as string) : fallback;
+};
 
 useSEO({
   title: t('home.seo.title'),
@@ -42,13 +54,14 @@ useHead({
     ...projectsMainPage.map(project => ({
       type: "application/ld+json",
       innerHTML: JSON.stringify(generateProjectSchema(
-        project.title,
-        project.description,
+        localize(`projects.items.${project.id}.title`, project.title),
+        localize(`projects.items.${project.id}.description`, project.description),
         project.imageSrc,
         project.link,
         project.skills
       )),
     })),
+
   ],
 });
 
@@ -286,6 +299,24 @@ onUnmounted(() => {
               </li>
             </ul>
           </nav>
+
+          <!-- Language switcher -->
+          <div class="mt-6">
+            <label for="language-select" class="sr-only">{{ $t('home.languageAriaLabel') }}</label>
+            <select
+              id="language-select"
+              v-model="locale"
+              class="text-sm bg-transparent border border-tertiary rounded px-2 py-1"
+              :aria-label="$t('home.languageAriaLabel')"
+            >
+              <option value="pt">
+                {{ $t('home.languages.pt') }} (PT)
+              </option>
+              <option value="en">
+                {{ $t('home.languages.en') }} (EN)
+              </option>
+            </select>
+          </div>
         </div>
 
         <SocialLinks />
@@ -339,8 +370,8 @@ onUnmounted(() => {
           >
             <ExperienceCard
               :period="experience.period"
-              :title="experience.title"
-              :description="experience.description"
+              :title="localize(`experience.items.${experience.id}.title`, experience.title)"
+              :description="localize(`experience.items.${experience.id}.description`, experience.description)"
               :skills="experience.skills"
               :link="experience.link"
             />
@@ -387,11 +418,11 @@ onUnmounted(() => {
             @blur="hoveredProject = null"
           >
             <ProjectCard
-              :title="project.title"
-              :description="project.description"
+              :title="localize(`projects.items.${project.id}.title`, project.title)"
+              :description="localize(`projects.items.${project.id}.description`, project.description)"
               :link="project.link"
               :image-src="project.imageSrc"
-              :image-alt="project.imageAlt"
+              :image-alt="localize(`projects.items.${project.id}.imageAlt`, project.imageAlt || project.title)"
               :skills="project.skills"
             />
           </article>

@@ -25,6 +25,11 @@ const en = {
     viewAllProjectsAria: "View all projects",
     viewAllServices: "View all services",
     viewAllServicesAria: "View all services",
+    languageAriaLabel: "Change language",
+    languages: {
+      en: "English",
+      pt: "Português"
+    },
     seo: {
       title: "Full Stack Developer | Web Development and Graphic Design",
       description:
@@ -44,6 +49,68 @@ const en = {
       description: "Portfolio of web development projects by Marcos Pilgrim (React, Next.js, Vue.js). Cases with technologies, results and links to demo.",
     },
     breadcrumbName: "Projects",
+    items: {
+      "mediari-consultoria": {
+        title: "Mediari Consultoria",
+        description: "Landing page for Mediari Consultoria built with Nuxt.",
+        imageAlt: "Landing page screenshot of Mediari Consultoria"
+      },
+      "okorok": {
+        title: "Okorok",
+        description: "Recipe platform to share, create, like and save recipes.",
+        imageAlt: "Screenshot of Okorok recipe platform"
+      },
+      "midnight": {
+        title: "MidNight",
+        description: "Tabletop RPG character sheet platform.",
+        imageAlt: "Screenshot of MidNight character sheets platform"
+      },
+      "diario-de-mariupol": {
+        title: "Diário de Mariupol",
+        description: "Landing page for the book 'Diário de Mariupol'.",
+        imageAlt: "Landing page screenshot for the book 'Diário de Mariupol'"
+      },
+      "coconut-links": {
+        title: "Coconut Links",
+        description: "Personal link page inspired by Linktree.",
+        imageAlt: "Screenshot of Coconut Links personal page"
+      },
+      "bunchin": {
+        title: "Bunchin",
+        description: "Digital time tracking and business management platform.",
+        imageAlt: "Screenshot of Bunchin platform"
+      },
+      "which-dog-are-you": {
+        title: "Which Dog Are You?",
+        description: "Quiz that indicates which dog breed you'd be.",
+        imageAlt: "Screenshot of Which Dog Are You quiz"
+      },
+      "alem-do-olhar": {
+        title: "Além do Olhar",
+        description: "Platform for showcasing creative works.",
+        imageAlt: "Screenshot of Além do Olhar platform"
+      },
+      "dicenders": {
+        title: "Dicenders",
+        description: "Social network and virtual board for RPG games.",
+        imageAlt: "Screenshot of Dicenders platform"
+      },
+      "la-tazza": {
+        title: "La Tazza",
+        description: "Platform for selling coffee beans, equipment and courses.",
+        imageAlt: "Screenshot of La Tazza platform"
+      },
+      "procopio-portfolio": {
+        title: "Portfólio Procópio",
+        description: "Personal portfolio of designer Procópio.",
+        imageAlt: "Screenshot of Procópio's portfolio"
+      },
+      "midnight-blue": {
+        title: "MidNight Blue",
+        description: "Evolution of the tabletop RPG character sheet platform rebuilt for performance and scalability.",
+        imageAlt: "Screenshot of MidNight Blue (v2)."
+      }
+    },
     table: {
       aria: {
         tableLabel: "Projects table",
@@ -70,6 +137,20 @@ const en = {
     card: {
       periodLabel: "Period",
       technologiesLabel: "Technologies used"
+    },
+    items: {
+      "freelancer-projects": {
+        title: "Freelancer & Personal Projects",
+        description: "Working on personal, academic and freelance projects developing modern web solutions, responsive interfaces and cloud integrations."
+      },
+      "fatec-maua": {
+        title: "Software Technologist - Fatec Mauá",
+        description: "Higher education focused on cross-platform systems development, programming, software engineering, databases and agile methodologies."
+      },
+      "etec-mcm": {
+        title: "IT Technician - Etec MCM",
+        description: "Technical training in web development, programming logic, databases and design fundamentals."
+      }
     }
   },
   services: {

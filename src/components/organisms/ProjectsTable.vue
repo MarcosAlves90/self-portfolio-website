@@ -8,6 +8,11 @@ const props = defineProps<{
 }>();
 
 const { t } = useI18n();
+
+const localize = (key: string, fallback: string) => {
+  const res = t(key);
+  return res && res !== key ? (res as string) : fallback;
+};
 </script>
 
 <template>
@@ -19,11 +24,21 @@ const { t } = useI18n();
   >
     <thead>
       <tr>
-        <th scope="col">{{ $t('projects.table.headers.year') }}</th>
-        <th scope="col">{{ $t('projects.table.headers.project') }}</th>
-        <th scope="col" class="hidden lg:table-cell">{{ $t('projects.table.headers.company') }}</th>
-        <th scope="col" class="hidden lg:table-cell">{{ $t('projects.table.headers.technologies') }}</th>
-        <th scope="col" class="hidden sm:table-cell">{{ $t('projects.table.headers.link') }}</th>
+        <th scope="col">
+          {{ $t('projects.table.headers.year') }}
+        </th>
+        <th scope="col">
+          {{ $t('projects.table.headers.project') }}
+        </th>
+        <th scope="col" class="hidden lg:table-cell">
+          {{ $t('projects.table.headers.company') }}
+        </th>
+        <th scope="col" class="hidden lg:table-cell">
+          {{ $t('projects.table.headers.technologies') }}
+        </th>
+        <th scope="col" class="hidden sm:table-cell">
+          {{ $t('projects.table.headers.link') }}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -39,10 +54,10 @@ const { t } = useI18n();
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center group cursor-pointer text-highlight hover:text-primary sm:hidden relative"
-              :aria-label="t('projects.table.aria.open', { title: project.title })"
-              :title="project.description"
+              :aria-label="t('projects.table.aria.open', { title: localize(`projects.items.${project.id}.title`, project.title) })"
+              :title="localize(`projects.items.${project.id}.description`, project.description)"
             >
-              <span>{{ project.title }}</span>
+              <span>{{ localize(`projects.items.${project.id}.title`, project.title) }}</span>
               <i
                 class="bi bi-box-arrow-up-right ml-2 transform transition-transform duration-200 group-hover:translate-x-2 group-focus:translate-x-2"
                 aria-hidden="true"
@@ -50,7 +65,7 @@ const { t } = useI18n();
             </a>
 
             <!-- Texto puro (visível em sm+), para evitar duplicidade quando há link -->
-            <span class="hidden sm:inline relative cursor-help" :title="project.description">{{ project.title }}</span>
+            <span class="hidden sm:inline relative cursor-help" :title="localize(`projects.items.${project.id}.description`, project.description)">{{ localize(`projects.items.${project.id}.title`, project.title) }}</span>
           </template>
           <template v-else>
             <span class="relative cursor-help" :title="project.description">{{

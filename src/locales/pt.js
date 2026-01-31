@@ -25,6 +25,11 @@ const pt = {
     viewAllProjectsAria: "Ver todos os projetos",
     viewAllServices: "Ver todos os serviços",
     viewAllServicesAria: "Ver todos os serviços",
+    languageAriaLabel: "Trocar idioma",
+    languages: {
+      en: "English",
+      pt: "Português"
+    },
     seo: {
       title: "Desenvolvedor Full Stack | Desenvolvimento Web e Design Gráfico",
       description:
@@ -44,6 +49,68 @@ const pt = {
       description: "Portfólio de projetos de desenvolvimento web por Marcos Pilgrim (React, Next.js, Vue.js). Cases com tecnologias, resultados e links para demonstração.",
     },
     breadcrumbName: "Projetos",
+    items: {
+      "mediari-consultoria": {
+        title: "Mediari Consultoria",
+        description: "Landing page da Mediari Consultoria desenvolvida com Nuxt.",
+        imageAlt: "Screenshot da landing page da Mediari Consultoria"
+      },
+      "okorok": {
+        title: "Okorok",
+        description: "Plataforma de receitas culinárias para compartilhar, criar, curtir e salvar receitas.",
+        imageAlt: "Screenshot da plataforma de receitas culinárias Okorok"
+      },
+      "midnight": {
+        title: "MidNight",
+        description: "Plataforma de fichas de RPG de mesa.",
+        imageAlt: "Screenshot da plataforma de fichas de RPG de mesa."
+      },
+      "diario-de-mariupol": {
+        title: "Diário de Mariupol",
+        description: "Landing page para o livro 'Diário de Mariupol'",
+        imageAlt: "Screenshot da landing page para o livro 'Diário de Mariupol'"
+      },
+      "coconut-links": {
+        title: "Coconut Links",
+        description: "Página de links pessoais estilo Linktree.",
+        imageAlt: "Screenshot da página de links pessoais estilo Linktree."
+      },
+      "bunchin": {
+        title: "Bunchin",
+        description: "Plataforma de ponto digital e gestão empresarial.",
+        imageAlt: "Screenshot da plataforma de ponto digital e gestão empresarial Bunchin."
+      },
+      "which-dog-are-you": {
+        title: "Which Dog Are You?",
+        description: "Quiz que indica qual seria sua raça de cachorro.",
+        imageAlt: "Screenshot do quiz Which Dog Are You?"
+      },
+      "alem-do-olhar": {
+        title: "Além do Olhar",
+        description: "Plataforma de divulgação de trabalhos criativos.",
+        imageAlt: "Screenshot da plataforma de divulgação de trabalhos criativos Além do Olhar."
+      },
+      "dicenders": {
+        title: "Dicenders",
+        description: "Rede social e tabuleiro virtual para jogos de RPG.",
+        imageAlt: "Screenshot da rede social e tabuleiro virtual para jogos de RPG Dicenders."
+      },
+      "la-tazza": {
+        title: "La Tazza",
+        description: "Plataforma para comercialização de grãos, equipamentos e cursos voltados ao café.",
+        imageAlt: "Screenshot da plataforma La Tazza."
+      },
+      "procopio-portfolio": {
+        title: "Portfólio Procópio",
+        description: "Portfólio pessoal do designer Procópio.",
+        imageAlt: "Screenshot da portfólio do Procópio"
+      },
+      "midnight-blue": {
+        title: "MidNight Blue",
+        description: "Evolução da plataforma de fichas de RPG de mesa, reconstruída para maior performance e escalabilidade.",
+        imageAlt: "Screenshot da plataforma MidNight Blue (v2)."
+      }
+    },
     table: {
       aria: {
         tableLabel: "Tabela de projetos",
@@ -70,6 +137,20 @@ const pt = {
     card: {
       periodLabel: "Período",
       technologiesLabel: "Tecnologias utilizadas"
+    },
+    items: {
+      "freelancer-projects": {
+        title: "Freelancer e Projetos Pessoais",
+        description: "Atuação em projetos próprios, acadêmicos e freelances, desenvolvendo soluções web modernas, interfaces responsivas e integrações com serviços em nuvem."
+      },
+      "fatec-maua": {
+        title: "Tecnólogo em Software - Fatec Mauá",
+        description: "Curso superior focado em desenvolvimento de sistemas multiplataforma, com ênfase em programação, engenharia de software, banco de dados e metodologias ágeis."
+      },
+      "etec-mcm": {
+        title: "Técnico em Informática - Etec MCM",
+        description: "Formação técnica voltada para desenvolvimento web, lógica de programação, banco de dados e fundamentos de design."
+      }
     }
   },
   services: {

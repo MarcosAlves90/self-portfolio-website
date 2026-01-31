@@ -2,13 +2,18 @@
 import { useHead } from "@vueuse/head";
 import { useSEO, generateBreadcrumbSchema, generateProjectSchema } from "@/composables/useSEO";
 import { ref, computed } from "vue";
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n';
 import BackToTop from "@/components/atoms/BackToTop.vue";
 import CommonLink from "@/components/atoms/CommonLink.vue";
 import ProjectsTable from "@/components/organisms/ProjectsTable.vue";
 import { projectsReverseSorted } from "@/data/projects";
 
 const { t } = useI18n();
+
+const localize = (key: string, fallback: string) => {
+  const res = t(key);
+  return res && res !== key ? (res as string) : fallback;
+};
 
 useSEO({
   title: t('projects.seo.title'),
@@ -37,13 +42,14 @@ useHead({
     ...projectsReverseSorted.map(project => ({
       type: "application/ld+json",
       innerHTML: JSON.stringify(generateProjectSchema(
-        project.title,
-        project.description,
+        localize(`projects.items.${project.id}.title`, project.title),
+        localize(`projects.items.${project.id}.description`, project.description),
         project.imageSrc,
         project.link,
         project.skills
       )),
     })),
+
   ],
 });
 

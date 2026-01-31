@@ -7,7 +7,7 @@ import CommonLink from "@/components/atoms/CommonLink.vue";
 import BackToTop from "@/components/atoms/BackToTop.vue";
 import { serviceCategories } from "@/data/services";
 
-const { t } = useI18n();
+const { t, te } = useI18n();
 
 useSEO({
   title: t('services.seo.title'),
@@ -49,11 +49,10 @@ const filteredCategories = computed(() => {
     return category.tiers.some((tier) => {
       const tierName = t(`services.categories.${category.id}.tiers.${tier.id}.name`).toLowerCase();
       const tierDesc = t(`services.categories.${category.id}.tiers.${tier.id}.description`).toLowerCase();
-      const features = t(`services.categories.${category.id}.tiers.${tier.id}.features`) || tier.features;
-      const featureArr = Array.isArray(features) ? features : [];
+      const featuresArr = getTierFeatures(category.id, tier.id, tier.features);
 
       if (tierName.includes(term) || tierDesc.includes(term)) return true;
-      return featureArr.some((f: string) => f.toLowerCase().includes(term));
+      return featuresArr.some((f: string) => f.toLowerCase().includes(term));
     });
   });
 });
@@ -67,14 +66,86 @@ const slug = (s: string) =>
     .replace(/\s+/g, '-')
     .replace(/[^\w-]/g, '');
 
+import i18n from "@/i18n";
+
+// Retorna mensagem bruta (sem passar por formatação do t) se existir
+const getRawMessage = (key: string) => {
+  try {
+    const i18nUnknown = i18n as unknown;
+    if (typeof i18nUnknown !== 'object' || i18nUnknown === null) return undefined;
+
+    const globalObj = (i18nUnknown as Record<string, unknown>)['global'] as Record<string, unknown> | undefined;
+    if (!globalObj) return undefined;
+
+    const localeRef = globalObj['locale'];
+    const locale = typeof localeRef === 'string' ? localeRef : (localeRef as { value?: string })?.value;
+    const getLocaleMessage = globalObj['getLocaleMessage'] as ((l: string) => Record<string, unknown> | undefined) | undefined;
+
+    const msgs = typeof getLocaleMessage === 'function' && locale ? getLocaleMessage(locale) || {} : {};
+    const parts = key.split('.');
+    let cur: unknown = msgs;
+    for (const p of parts) {
+      if (cur && typeof cur === 'object' && p in (cur as Record<string, unknown>)) cur = (cur as Record<string, unknown>)[p];
+      else return undefined;
+    }
+
+    return cur;
+  } catch {
+    return undefined;
+  }
+};
+
 // Retorna um array de features para um tier, preferindo a tradução quando definida
+// Suporta arrays, strings JSON e strings com quebras de linha ou vírgulas
 const getTierFeatures = (catId: string, tierId: string, defaultFeatures: string[]) => {
-  const res = t(`services.categories.${catId}.tiers.${tierId}.features`);
-  if (Array.isArray(res)) return res as string[];
+  const key = `services.categories.${catId}.tiers.${tierId}.features`;
+
+  // 1) tente diretamente na mensagem bruta (garante arrays reais)
+  const raw = getRawMessage(key);
+  if (Array.isArray(raw)) return raw as string[];
+  if (typeof raw === 'string') {
+    const s = raw.trim();
+    if (s.startsWith('[') && s.endsWith(']')) {
+      try {
+        const parsed = JSON.parse(s);
+        if (Array.isArray(parsed)) return parsed;
+      } catch {
+        // ignore
+      }
+    }
+    const parts = s.split(/\r?\n|\||,/).map(p => p.trim()).filter(Boolean);
+    if (parts.length > 0) return parts;
+  }
+
+  // 2) fallback para t()/te() (compatibilidade)
+  if (te(key)) {
+    const res: unknown = t(key);
+    if (Array.isArray(res)) return res as string[];
+    if (typeof res === 'string') {
+      const s = res.trim();
+      if (s.startsWith('[') && s.endsWith(']')) {
+        try {
+          const parsed = JSON.parse(s);
+          if (Array.isArray(parsed)) return parsed;
+        } catch {
+          // ignore
+        }
+      }
+      const parts = s.split(/\r?\n|\||,/).map(p => p.trim()).filter(Boolean);
+      if (parts.length > 0) return parts;
+    }
+  }
+
+  // 3) fallback definitivo para dados originais
   return defaultFeatures;
 };
 
 // Componente BackToTop lida com exibição e scroll
+
+// Debug helper (dev only): inspeciona mensagens i18n brutas
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  (window as Window & { __i18nGet?: (key: string) => unknown }).__i18nGet = (key: string) => getRawMessage(key) ?? (te(key) ? t(key) : null);
+}
 </script>
 
 <template>

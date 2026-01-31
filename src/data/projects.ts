@@ -2,6 +2,7 @@ import { Project } from "./types";
 
 const projectsBrute: Project[] = [
   {
+    id: "mediari-consultoria",
     title: "Mediari Consultoria",
     description: "Landing page da Mediari Consultoria desenvolvida com Nuxt.",
     link: "https://mediariconsultoria.com.br",
@@ -13,6 +14,7 @@ const projectsBrute: Project[] = [
     company: "Mediari Consultoria LTDA",
   },
   {
+    id: "okorok",
     title: "Okorok",
     description:
       "Plataforma de receitas culinárias para compartilhar, criar, curtir e salvar receitas.",
@@ -24,6 +26,7 @@ const projectsBrute: Project[] = [
     year: 2025,
   },
   {
+    id: "midnight",
     title: "MidNight",
     description: "Plataforma de fichas de RPG de mesa.",
     link: "https://v1.midnight.marcospilgrim.com.br",
@@ -34,6 +37,7 @@ const projectsBrute: Project[] = [
     year: 2024,
   },
   {
+    id: "diario-de-mariupol",
     title: "Diário de Mariupol",
     description: 'Landing page para o livro "Diário de Mariupol"',
     link: "https://diario-de-mariupol.vercel.app",
@@ -56,6 +60,7 @@ const projectsBrute: Project[] = [
   //   company: "Antônia Fernandes Store",
   // },
   {
+    id: "coconut-links",
     title: "Coconut Links",
     description: "Página de links pessoais estilo Linktree.",
     link: "https://links.marcospilgrim.com.br",
@@ -66,6 +71,7 @@ const projectsBrute: Project[] = [
     year: 2024,
   },
   {
+    id: "bunchin",
     title: "Bunchin",
     description: "Plataforma de ponto digital e gestão empresarial.",
     link: "https://bunchin-project.onrender.com",
@@ -84,6 +90,7 @@ const projectsBrute: Project[] = [
     year: 2024,
   },
   {
+    id: "which-dog-are-you",
     title: "Which Dog Are You?",
     description: "Quiz que indica qual seria sua raça de cachorro.",
     link: "https://which-dog-are-you.vercel.app",
@@ -123,6 +130,7 @@ const projectsBrute: Project[] = [
     year: 2023,
   },
   {
+    id: "la-tazza",
     title: "La Tazza",
     description:
       "Plataforma para comercialização de grãos, equipamentos e cursos voltados ao café.",
@@ -134,6 +142,7 @@ const projectsBrute: Project[] = [
     year: 2025,
   },
   {
+    id: "procopio-portfolio",
     title: "Portfólio Procópio",
     description: "Portfólio pessoal do designer Procópio.",
     link: "https://procoopio.com.br",
@@ -144,6 +153,7 @@ const projectsBrute: Project[] = [
     company: "Arcane JVP",
   },
   {
+    id: "midnight-blue",
     title: "MidNight Blue",
     description:
       "Evolução da plataforma de fichas de RPG de mesa, reconstruída para maior performance e escalabilidade.",
@@ -164,9 +174,9 @@ export const projectsReverseSorted = [...projectsBrute].sort(
 );
 export const projectsMainPage = [...projectsReverseSorted].filter((project) =>
   [
-    "Mediari Consultoria",
-    "Portfólio Procópio",
-    "La Tazza",
-    "MidNight Blue",
-  ].includes(project.title),
+    "mediari-consultoria",
+    "procopio-portfolio",
+    "la-tazza",
+    "midnight-blue",
+  ].includes(project.id || ""),
 );
