@@ -4,6 +4,7 @@ import ProjectCard from "@/components/molecules/ProjectCard.vue";
 import CommonLink from "@/components/atoms/CommonLink.vue";
 import StickySectionBar from "@/components/atoms/StickySectionBar.vue";
 import SocialLinks from "@/components/atoms/SocialLinks.vue";
+import LanguageSwitcher from "@/components/atoms/LanguageSwitcher.vue";
 import { useHead } from "@vueuse/head";
 import { useI18n } from 'vue-i18n';
 import { RouterLink } from 'vue-router';
@@ -302,20 +303,7 @@ onUnmounted(() => {
 
           <!-- Language switcher -->
           <div class="mt-6">
-            <label for="language-select" class="sr-only">{{ $t('home.languageAriaLabel') }}</label>
-            <select
-              id="language-select"
-              v-model="locale"
-              class="text-sm bg-transparent border border-tertiary rounded px-2 py-1"
-              :aria-label="$t('home.languageAriaLabel')"
-            >
-              <option value="pt">
-                {{ $t('home.languages.pt') }} (PT)
-              </option>
-              <option value="en">
-                {{ $t('home.languages.en') }} (EN)
-              </option>
-            </select>
+            <LanguageSwitcher />
           </div>
         </div>
 
