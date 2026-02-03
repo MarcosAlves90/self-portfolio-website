@@ -109,6 +109,11 @@ const pt = {
         title: "MidNight Blue",
         description: "Evolução da plataforma de fichas de RPG de mesa, reconstruída para maior performance e escalabilidade.",
         imageAlt: "Screenshot da plataforma MidNight Blue (v2)."
+      },
+      "neospend": {
+        title: "NeoSpend",
+        description: "Controle seus gastos com uma interface elegante. Acompanhe receitas, despesas e a saúde financeira em segundos.",
+        imageAlt: "Screenshot da aplicação NeoSpend."
       }
     },
     table: {

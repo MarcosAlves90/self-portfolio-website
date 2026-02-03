@@ -9,7 +9,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1755994599/mediari_zlzf1n.png",
     imageAlt: "Screenshot da landing page da Mediari Consultoria",
-    skills: ["Nuxt", "Tailwindcss", "TypeScript", "Firebase", "Cloudinary"],
+    skills: ["Nuxt", "TailwindCSS", "TypeScript", "Firebase", "Cloudinary"],
     year: 2025,
     company: "Mediari Consultoria LTDA",
   },
@@ -22,7 +22,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1756435274/okorok_qpinw6.png",
     imageAlt: "Screenshot da plataforma de receitas culinárias Okorok",
-    skills: ["Next.js", "Tailwindcss", "TypeScript", "PostgreSQL"],
+    skills: ["Next.js", "TailwindCSS", "TypeScript", "PostgreSQL"],
     year: 2025,
   },
   {
@@ -44,7 +44,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1755998702/diario-de-mariupol_jal1g7.png",
     imageAlt: "Screenshot da landing page para o livro 'Diário de Mariupol'",
-    skills: ["React", "Tailwindcss", "TypeScript"],
+    skills: ["React", "TailwindCSS", "TypeScript"],
     year: 2025,
   },
   // {
@@ -67,7 +67,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1756407127/coconut_links_jpd4u7.png",
     imageAlt: "Screenshot da página de links pessoais estilo Linktree.",
-    skills: ["React", "Tailwindcss", "JavaScript"],
+    skills: ["React", "TailwindCSS", "JavaScript"],
     year: 2024,
   },
   {
@@ -81,7 +81,7 @@ const projectsBrute: Project[] = [
       "Screenshot da plataforma de ponto digital e gestão empresarial Bunchin.",
     skills: [
       "React",
-      "Tailwindcss",
+      "TailwindCSS",
       "TypeScript",
       "Spring Boot",
       "PostgreSQL",
@@ -138,7 +138,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1761982544/la-tazza_seq6hm.png",
     imageAlt: "Screenshot da plataforma La Tazza.",
-    skills: ["Next.js", "TypeScript", "Tailwindcss", "Firebase", "Cloudinary"],
+    skills: ["Next.js", "TypeScript", "TailwindCSS", "Firebase", "Cloudinary"],
     year: 2025,
   },
   {
@@ -148,7 +148,7 @@ const projectsBrute: Project[] = [
     link: "https://procoopio.com.br",
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1768343099/procoopio_hs78eu.png",
-    skills: ["React", "TypeScript", "Tailwindcss", "Cloudinary"],
+    skills: ["React", "TypeScript", "TailwindCSS", "Cloudinary"],
     year: 2025,
     company: "Arcane JVP",
   },
@@ -161,9 +161,20 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1768342549/midnight-blue_q9wtz0.png",
     imageAlt: "Screenshot da plataforma MidNight Blue (v2).",
-    skills: ["Next.js", "Tailwindcss", "TypeScript", "Firebase"],
+    skills: ["Next.js", "TailwindCSS", "TypeScript", "Firebase"],
     year: 2026,
   },
+  {
+    id: "neospend",
+    title: "NeoSpend",
+    description: "Controle seus gastos com uma interface elegante. Acompanhe receitas, despesas e a saúde financeira em segundos.",
+    link: "https://neospend.marcospilgrim.com.br",
+    imageSrc:
+      "https://res.cloudinary.com/dgsywmzb2/image/upload/v1770114414/neospend-homepage_tnrzat.png",
+    imageAlt: "Screenshot da aplicação NeoSpend.",
+    skills: ["Angular", "TypeScript", "TailwindCSS"],
+    year: 2026,
+  }
 ];
 
 export const projectsSorted = [...projectsBrute].sort(
@@ -175,7 +186,7 @@ export const projectsReverseSorted = [...projectsBrute].sort(
 export const projectsMainPage = [...projectsReverseSorted].filter((project) =>
   [
     "mediari-consultoria",
-    "procopio-portfolio",
+    "neospend",
     "la-tazza",
     "midnight-blue",
   ].includes(project.id || ""),

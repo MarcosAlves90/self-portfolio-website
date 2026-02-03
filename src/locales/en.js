@@ -109,6 +109,11 @@ const en = {
         title: "MidNight Blue",
         description: "Evolution of the tabletop RPG character sheet platform rebuilt for performance and scalability.",
         imageAlt: "Screenshot of MidNight Blue (v2)."
+      },
+      "neospend": {
+        title: "NeoSpend",
+        description: "Track your expenses with an elegant interface. Monitor income, expenses and your financial health in seconds.",
+        imageAlt: "Screenshot of the NeoSpend application."
       }
     },
     table: {
