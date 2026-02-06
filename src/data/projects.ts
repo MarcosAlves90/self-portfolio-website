@@ -18,7 +18,7 @@ const projectsBrute: Project[] = [
     title: "Okorok",
     description:
       "Plataforma de receitas culinárias para compartilhar, criar, curtir e salvar receitas.",
-    link: "https://okorok.vercel.app",
+    link: "https://okorok.marcospilgrim.com.br",
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1756435274/okorok_qpinw6.png",
     imageAlt: "Screenshot da plataforma de receitas culinárias Okorok",
