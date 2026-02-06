@@ -129,19 +129,23 @@ body {
 
 /* Firefox */
 html {
+  /* eslint-disable-next-line css/use-baseline */
   scrollbar-width: thin;
+  /* eslint-disable-next-line css/use-baseline */
   scrollbar-color: var(--color-highlight) transparent;
+  /* eslint-disable-next-line css/use-baseline */
   scrollbar-gutter: stable;
 }
 
 /* Prevent layout shifts when scrollbar appears/disappears */
 body {
+  /* eslint-disable-next-line css/use-baseline */
   scrollbar-gutter: stable;
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
-    scroll-behavior: auto !important;
+    scroll-behavior: auto;
   }
 }
 

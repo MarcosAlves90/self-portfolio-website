@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// cspell:ignore vueuse
 import { useHead } from "@vueuse/head";
 import { useSEO, generateBreadcrumbSchema } from "@/composables/useSEO";
 import { ref, computed } from "vue";
@@ -9,6 +10,7 @@ import { serviceCategories } from "@/data/services";
 
 const { t, te } = useI18n();
 
+// cspell:ignore servicos
 useSEO({
   title: t('services.seo.title'),
   description: t('services.seo.description'),
@@ -37,34 +39,74 @@ useHead({
 });
 
 const searchTerm = ref("");
+const selectedType = ref("all");
+const serviceTypeFilterDescriptionId = "service-type-filter-description";
+const filtersOpen = ref(false);
 
-const filteredCategories = computed(() => {
-  if (!searchTerm.value) return serviceCategories;
-  const term = searchTerm.value.toLowerCase();
-  return serviceCategories.filter((category) => {
-    const catTitle = t(`services.categories.${category.id}.title`).toLowerCase();
-    const catDesc = t(`services.categories.${category.id}.description`).toLowerCase();
-    if (catTitle.includes(term) || catDesc.includes(term)) return true;
+const handleToggleFilters = (event: Event) => {
+  filtersOpen.value = (event.currentTarget as HTMLDetailsElement).open;
+};
 
-    return category.tiers.some((tier) => {
-      const tierName = t(`services.categories.${category.id}.tiers.${tier.id}.name`).toLowerCase();
-      const tierDesc = t(`services.categories.${category.id}.tiers.${tier.id}.description`).toLowerCase();
-      const featuresArr = getTierFeatures(category.id, tier.id, tier.features);
-
-      if (tierName.includes(term) || tierDesc.includes(term)) return true;
-      return featuresArr.some((f: string) => f.toLowerCase().includes(term));
-    });
-  });
-});
-
-// Helper para âncoras (remove acentos e caracteres inválidos)
+// Helper para âncoras e IDs acessíveis (remove acentos e caracteres inválidos)
 const slug = (s: string) =>
   s
     .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]/g, '');
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]/g, "");
+
+const filterOptions = computed(() => {
+  const defaultOption = {
+    id: "all",
+    label: t("services.filters.all"),
+    description: t("services.filters.allDescription"),
+  };
+
+  const categories = serviceCategories.map((category) => {
+    const id = category.id ?? slug(category.title);
+    return {
+      id,
+      label: t(`services.categories.${category.id}.title`),
+      description: t(`services.categories.${category.id}.description`),
+    };
+  });
+
+  return [defaultOption, ...categories];
+});
+
+const selectedFilterOption = computed(
+  () => filterOptions.value.find((option) => option.id === selectedType.value) ?? filterOptions.value[0]
+);
+
+const filteredCategories = computed(() => {
+  const term = searchTerm.value.trim().toLowerCase();
+  const isTypeFiltered = selectedType.value !== "all";
+
+  const availableCategories = serviceCategories.filter((category) => {
+    if (!isTypeFiltered) return true;
+    return category.id === selectedType.value;
+  });
+
+  if (!term) return availableCategories;
+
+  const includesTerm = (value: string) => value.toLowerCase().includes(term);
+
+  return availableCategories.filter((category) => {
+    const catTitle = t(`services.categories.${category.id}.title`);
+    const catDesc = t(`services.categories.${category.id}.description`);
+    if (includesTerm(catTitle) || includesTerm(catDesc)) return true;
+
+    return category.tiers.some((tier) => {
+      const tierName = t(`services.categories.${category.id}.tiers.${tier.id}.name`);
+      const tierDesc = t(`services.categories.${category.id}.tiers.${tier.id}.description`);
+      const featuresArr = getTierFeatures(category.id, tier.id, tier.features);
+
+      if (includesTerm(tierName) || includesTerm(tierDesc)) return true;
+      return featuresArr.some((feature: string) => includesTerm(feature));
+    });
+  });
+});
 
 import i18n from "@/i18n";
 
@@ -185,7 +227,70 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
         </form>
       </div>
 
-      <div class="space-y-20 pb-20">
+      <div class="mb-6 space-y-3">
+        <details
+          class="rounded-lg border border-tertiary/70 bg-background/80 shadow-sm"
+          :open="filtersOpen"
+          @toggle="handleToggleFilters"
+        >
+          <summary
+            class="group flex items-center justify-between gap-3 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-secondary cursor-pointer focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-highlight"
+          >
+            <span class="flex items-center gap-3">
+              {{ $t('services.filters.summary') }}
+              <span class="rounded-full border border-tertiary/60 px-3 py-1 text-[11px] font-semibold normal-case tracking-normal text-primary">
+                {{ selectedFilterOption.label }}
+              </span>
+            </span>
+            <span class="flex items-center gap-2 text-xs font-medium normal-case tracking-normal text-tertiary">
+              <span class="hidden md:inline">{{ selectedFilterOption.description }}</span>
+              <i
+                class="bi bi-chevron-down text-base transition-transform"
+                :class="filtersOpen ? 'rotate-180' : ''"
+                aria-hidden="true"
+              />
+            </span>
+          </summary>
+          <div class="space-y-3 border-t border-tertiary/50 px-4 py-4">
+            <fieldset
+              class="space-y-3"
+              :aria-describedby="serviceTypeFilterDescriptionId"
+            >
+              <legend class="sr-only">
+                {{ $t('services.filters.legend') }}
+              </legend>
+              <p :id="serviceTypeFilterDescriptionId" class="text-xs text-secondary">
+                {{ $t('services.filters.description') }}
+              </p>
+              <div
+                role="radiogroup"
+                :aria-label="$t('services.filters.ariaLabel')"
+                :aria-describedby="serviceTypeFilterDescriptionId"
+                class="flex flex-wrap gap-2"
+              >
+                <button
+                  v-for="option in filterOptions"
+                  :key="option.id"
+                  type="button"
+                  role="radio"
+                  class="inline-flex items-center rounded-full border px-3 py-2 text-xs font-semibold transition focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight"
+                  :class="[
+                    selectedType === option.id
+                      ? 'border-highlight bg-highlight text-background shadow-sm'
+                      : 'border-tertiary/50 bg-transparent text-primary hover:border-highlight/60'
+                  ]"
+                  :aria-checked="selectedType === option.id"
+                  @click="selectedType = option.id"
+                >
+                  <span>{{ option.label }}</span>
+                </button>
+              </div>
+            </fieldset>
+          </div>
+        </details>
+      </div>
+
+      <div class="space-y-20 pb-20" aria-live="polite" aria-relevant="additions text">
         <section v-if="filteredCategories.length === 0" class="py-12 text-center text-tertiary">
           {{ $t('services.noResults') }}
         </section>
