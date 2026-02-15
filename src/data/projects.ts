@@ -26,10 +26,10 @@ const projectsBrute: Project[] = [
     year: 2025,
   },
   {
-    id: "midnight",
-    title: "MidNight",
+    id: "highnoon",
+    title: "HighNoon",
     description: "Plataforma de fichas de RPG de mesa.",
-    link: "https://v1.midnight.marcospilgrim.com.br",
+    link: "https://highnoon.marcospilgrim.com.br",
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1755998111/midnight_mbwhbj.png",
     imageAlt: "Screenshot da plataforma de fichas de RPG de mesa.",
@@ -157,7 +157,7 @@ const projectsBrute: Project[] = [
     title: "MidNight Blue",
     description:
       "Evolução da plataforma de fichas de RPG de mesa, reconstruída para maior performance e escalabilidade.",
-    link: "https://v2.midnight.marcospilgrim.com.br",
+    link: "https://midnight.marcospilgrim.com.br",
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1768342549/midnight-blue_q9wtz0.png",
     imageAlt: "Screenshot da plataforma MidNight Blue (v2).",
