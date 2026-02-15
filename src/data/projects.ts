@@ -33,7 +33,7 @@ const projectsBrute: Project[] = [
     imageSrc:
       "https://res.cloudinary.com/dgsywmzb2/image/upload/v1755998111/midnight_mbwhbj.png",
     imageAlt: "Screenshot da plataforma de fichas de RPG de mesa.",
-    skills: ["React", "Styled Components", "JavaScript", "Firebase"],
+    skills: ["React", "TailwindCSS", "JavaScript", "Firebase"],
     year: 2024,
   },
   {
