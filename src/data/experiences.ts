@@ -16,7 +16,20 @@ export const experiences: Experience[] = [
     title: "Tecnólogo em Software - Fatec Mauá",
     description:
       "Curso superior focado em desenvolvimento de sistemas multiplataforma, com ênfase em programação, engenharia de software, banco de dados e metodologias ágeis.",
-    skills: ["JavaScript", "HTML", "CSS", "Java", "Spring Boot", "Python", "C"],
+    skills: [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Java",
+      "Spring Boot",
+      "Python",
+      "C",
+      "Dart",
+      "PHP",
+      "C++",
+      "C#",
+      "Kotlin",
+    ],
     link: "https://www.fatecmaua.com.br",
   },
   {
