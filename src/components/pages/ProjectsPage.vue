@@ -75,11 +75,15 @@ const technologyOptions = computed(() => {
   );
 
   return [
-    { id: "all", label: "Todas as tecnologias", description: "Mostra todos os projetos." },
+    {
+      id: "all",
+      label: t("projects.filters.all"),
+      description: t("projects.filters.allDescription"),
+    },
     ...sortedSkills.map((skill) => ({
       id: skill,
       label: skill,
-      description: `Projetos com ${skill}.`,
+      description: t("projects.filters.optionDescription", { tech: skill }),
     })),
   ];
 });
@@ -87,8 +91,8 @@ const technologyOptions = computed(() => {
 const filterGroups = computed(() => [
   {
     id: "technology",
-    label: "Tecnologias",
-    description: "Filtre por uma tecnologia específica.",
+    label: t("projects.filters.legend"),
+    description: t("projects.filters.description"),
     options: technologyOptions.value,
     selectedId: selectedFilters.value.technology,
   },
@@ -174,7 +178,7 @@ const formatLink = (link?: string) => {
 
       <div class="mb-6 space-y-3">
         <FiltersPanel
-          summary-label="Filtros"
+          :summary-label="$t('projects.filters.summary')"
           :selected-label="selectedTechnologyOption.label"
           :selected-description="selectedTechnologyOption.description"
           description-id-base="project-filter-description"

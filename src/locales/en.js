@@ -136,6 +136,15 @@ const en = {
     card: {
       technologiesLabel: "Technologies used",
       imageAltFallback: "Project image: {title}"
+    },
+    filters: {
+      legend: "Filter by technology",
+      summary: "Filters",
+      description: "Choose a technology to focus on the most relevant projects.",
+      ariaLabel: "Technology filter",
+      all: "All technologies",
+      allDescription: "Shows all projects",
+      optionDescription: "Projects with {tech}."
     }
   },
   experience: {
