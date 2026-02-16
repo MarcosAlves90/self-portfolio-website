@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { Project } from "@/data/types";
+import { buildProjectSkillsWithIcons } from "@/utils/projectSkills";
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
@@ -13,6 +15,13 @@ const localize = (key: string, fallback: string) => {
   const res = t(key);
   return res && res !== key ? (res as string) : fallback;
 };
+
+const projectsWithSkills = computed(() =>
+  props.projects.map((project) => ({
+    ...project,
+    skillsWithIcons: buildProjectSkillsWithIcons(project.skills),
+  })),
+);
 </script>
 
 <template>
@@ -42,7 +51,7 @@ const localize = (key: string, fallback: string) => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(project, index) in projects" :key="`${project.title}-${project.year || 'na'}-${index}`" role="row">
+      <tr v-for="(project, index) in projectsWithSkills" :key="`${project.title}-${project.year || 'na'}-${index}`" role="row">
         <td role="cell" class="text-tertiary" :data-label="$t('projects.table.headers.year')">
           {{ project.year || $t('projects.table.na') }}
         </td>
@@ -79,12 +88,26 @@ const localize = (key: string, fallback: string) => {
         <td role="cell" class="hidden lg:table-cell" :data-label="$t('projects.table.headers.technologies')">
           <ul class="flex flex-wrap gap-2 text-sm" role="list">
             <li
-              v-for="skill in project.skills"
-              :key="skill"
+              v-for="skill in project.skillsWithIcons"
+              :key="skill.name"
               role="listitem"
-              class="bg-highlight/20 rounded-4xl px-2 text-highlight transition transform duration-150 ease-in-out hover:scale-105"
+              class="bg-highlight/20 rounded-4xl px-2 text-highlight transition transform duration-150 ease-in-out hover:scale-105 inline-flex items-center gap-2"
             >
-              {{ skill }}
+              <a
+                v-if="skill.link"
+                :href="skill.link"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2"
+                :aria-label="t('projects.table.aria.goTo', { title: skill.name })"
+              >
+                <i :class="skill.iconClass" aria-hidden="true" />
+                <span>{{ skill.name }}</span>
+              </a>
+              <template v-else>
+                <i :class="skill.iconClass" aria-hidden="true" />
+                <span>{{ skill.name }}</span>
+              </template>
             </li>
           </ul>
         </td>

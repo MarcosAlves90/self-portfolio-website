@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { useI18n } from 'vue-i18n';
 import CardBase from "@/components/templates/CardBase.vue";
+import { buildProjectSkillsWithIcons } from "@/utils/projectSkills";
 
 const props = defineProps<{
   period: string;
@@ -11,6 +13,8 @@ const props = defineProps<{
 }>();
 
 const { t } = useI18n();
+
+const skillsWithIcons = computed(() => buildProjectSkillsWithIcons(props.skills));
 </script>
 
 <template>
@@ -42,12 +46,13 @@ const { t } = useI18n();
       </div>
       <ul class="flex flex-wrap gap-2 text-sm" role="list" :aria-label="t('experience.card.technologiesLabel')">
         <li
-          v-for="skill in props.skills"
-          :key="skill"
+          v-for="skill in skillsWithIcons"
+          :key="skill.name"
           role="listitem"
-          class="bg-highlight/20 rounded-4xl px-2 text-highlight transition transform duration-150 ease-in-out"
+          class="bg-highlight/20 rounded-4xl px-2 text-highlight transition transform duration-150 ease-in-out inline-flex items-center gap-2"
         >
-          {{ skill }}
+          <i :class="skill.iconClass" aria-hidden="true" />
+          <span>{{ skill.name }}</span>
         </li>
       </ul>
     </div>

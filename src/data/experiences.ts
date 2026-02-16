@@ -7,13 +7,7 @@ export const experiences: Experience[] = [
     title: "Freelancer e Projetos Pessoais",
     description:
       "Atuação em projetos próprios, acadêmicos e freelances, desenvolvendo soluções web modernas, interfaces responsivas e integrações com serviços em nuvem.",
-    skills: [
-      "React.js",
-      "Vue.js",
-      "Tailwindcss",
-      "Styled Components",
-      "Firebase",
-    ],
+    skills: ["React", "Vue", "TailwindCSS", "Styled Components", "Firebase"],
     link: "https://www.instagram.com/marcos.pilgrim",
   },
   {
@@ -22,7 +16,7 @@ export const experiences: Experience[] = [
     title: "Tecnólogo em Software - Fatec Mauá",
     description:
       "Curso superior focado em desenvolvimento de sistemas multiplataforma, com ênfase em programação, engenharia de software, banco de dados e metodologias ágeis.",
-    skills: ["JavaScript", "HTML & CSS", "Java", "Springboot", "Python", "C"],
+    skills: ["JavaScript", "HTML", "CSS", "Java", "Spring Boot", "Python", "C"],
     link: "https://www.fatecmaua.com.br",
   },
   {
@@ -31,7 +25,7 @@ export const experiences: Experience[] = [
     title: "Técnico em Informática - Etec MCM",
     description:
       "Formação técnica voltada para desenvolvimento web, lógica de programação, banco de dados e fundamentos de design.",
-    skills: ["JavaScript", "HTML & CSS", "Java"],
+    skills: ["JavaScript", "HTML", "CSS", "Java"],
     link: "https://etecmcm.cps.sp.gov.br",
   },
 ];
