@@ -5,6 +5,7 @@ import { ref, computed } from "vue";
 import { useI18n } from 'vue-i18n';
 import BackToTop from "@/components/atoms/BackToTop.vue";
 import CommonLink from "@/components/atoms/CommonLink.vue";
+import FiltersPanel from "@/components/molecules/FiltersPanel.vue";
 import ProjectsTable from "@/components/organisms/ProjectsTable.vue";
 import { projectsReverseSorted } from "@/data/projects";
 
@@ -54,19 +55,68 @@ useHead({
 });
 
 const searchTerm = ref("");
+const filtersOpen = ref(false);
+const selectedFilters = ref({
+  technology: "all",
+});
+
+const handleToggleFilters = (isOpen: boolean) => {
+  filtersOpen.value = isOpen;
+};
+
+const technologyOptions = computed(() => {
+  const uniqueSkills = new Set<string>();
+  projectsReverseSorted.forEach((project) => {
+    project.skills.forEach((skill) => uniqueSkills.add(skill));
+  });
+
+  const sortedSkills = Array.from(uniqueSkills).sort((a, b) =>
+    a.localeCompare(b, "pt-BR", { sensitivity: "base" }),
+  );
+
+  return [
+    { id: "all", label: "Todas as tecnologias", description: "Mostra todos os projetos." },
+    ...sortedSkills.map((skill) => ({
+      id: skill,
+      label: skill,
+      description: `Projetos com ${skill}.`,
+    })),
+  ];
+});
+
+const filterGroups = computed(() => [
+  {
+    id: "technology",
+    label: "Tecnologias",
+    description: "Filtre por uma tecnologia específica.",
+    options: technologyOptions.value,
+    selectedId: selectedFilters.value.technology,
+  },
+]);
+
+const selectedTechnologyOption = computed(
+  () => technologyOptions.value.find((option) => option.id === selectedFilters.value.technology)
+    ?? technologyOptions.value[0],
+);
 
 const filteredProjects = computed(() => {
+  const isTechnologyFiltered = selectedFilters.value.technology !== "all";
   if (!searchTerm.value) {
-    return projectsReverseSorted;
+    return projectsReverseSorted.filter((project) =>
+      !isTechnologyFiltered || project.skills.includes(selectedFilters.value.technology),
+    );
   }
 
   const term = searchTerm.value.toLowerCase();
   return projectsReverseSorted.filter(
     (project) =>
-      project.title.toLowerCase().includes(term) ||
-      project.description.toLowerCase().includes(term) ||
-      project.skills.some((skill) => skill.toLowerCase().includes(term)) ||
-      (project.company && project.company.toLowerCase().includes(term)),
+      (!isTechnologyFiltered || project.skills.includes(selectedFilters.value.technology)) &&
+      (
+        project.title.toLowerCase().includes(term) ||
+        project.description.toLowerCase().includes(term) ||
+        project.skills.some((skill) => skill.toLowerCase().includes(term)) ||
+        (project.company && project.company.toLowerCase().includes(term))
+      ),
   );
 });
 
@@ -120,6 +170,19 @@ const formatLink = (link?: string) => {
             :aria-label="$t('projects.search.ariaLabel')"
           >
         </form>
+      </div>
+
+      <div class="mb-6 space-y-3">
+        <FiltersPanel
+          summary-label="Filtros"
+          :selected-label="selectedTechnologyOption.label"
+          :selected-description="selectedTechnologyOption.description"
+          description-id-base="project-filter-description"
+          :groups="filterGroups"
+          :is-open="filtersOpen"
+          @toggle="handleToggleFilters"
+          @select="({ optionId }) => { selectedFilters.technology = optionId; }"
+        />
       </div>
 
       <div class="space-y-12">

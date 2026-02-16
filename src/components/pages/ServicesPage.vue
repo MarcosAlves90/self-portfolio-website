@@ -6,6 +6,7 @@ import { ref, computed } from "vue";
 import { useI18n } from 'vue-i18n';
 import CommonLink from "@/components/atoms/CommonLink.vue";
 import BackToTop from "@/components/atoms/BackToTop.vue";
+import FiltersPanel from "@/components/molecules/FiltersPanel.vue";
 import { serviceCategories } from "@/data/services";
 
 const { t, te } = useI18n();
@@ -40,11 +41,10 @@ useHead({
 
 const searchTerm = ref("");
 const selectedType = ref("all");
-const serviceTypeFilterDescriptionId = "service-type-filter-description";
 const filtersOpen = ref(false);
 
-const handleToggleFilters = (event: Event) => {
-  filtersOpen.value = (event.currentTarget as HTMLDetailsElement).open;
+const handleToggleFilters = (isOpen: boolean) => {
+  filtersOpen.value = isOpen;
 };
 
 // Helper para âncoras e IDs acessíveis (remove acentos e caracteres inválidos)
@@ -78,6 +78,16 @@ const filterOptions = computed(() => {
 const selectedFilterOption = computed(
   () => filterOptions.value.find((option) => option.id === selectedType.value) ?? filterOptions.value[0]
 );
+
+const filterGroups = computed(() => [
+  {
+    id: "type",
+    label: t("services.filters.legend"),
+    description: t("services.filters.description"),
+    options: filterOptions.value,
+    selectedId: selectedType.value,
+  },
+]);
 
 const filteredCategories = computed(() => {
   const term = searchTerm.value.trim().toLowerCase();
@@ -228,66 +238,16 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
       </div>
 
       <div class="mb-6 space-y-3">
-        <details
-          class="rounded-lg border border-tertiary/70 bg-background/80 shadow-sm"
-          :open="filtersOpen"
+        <FiltersPanel
+          :summary-label="$t('services.filters.summary')"
+          :selected-label="selectedFilterOption.label"
+          :selected-description="selectedFilterOption.description"
+          description-id-base="service-type-filter-description"
+          :groups="filterGroups"
+          :is-open="filtersOpen"
           @toggle="handleToggleFilters"
-        >
-          <summary
-            class="group flex items-center justify-between gap-3 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-secondary cursor-pointer focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-highlight"
-          >
-            <span class="flex items-center gap-3">
-              {{ $t('services.filters.summary') }}
-              <span class="rounded-full border border-tertiary/60 px-3 py-1 text-[11px] font-semibold normal-case tracking-normal text-primary">
-                {{ selectedFilterOption.label }}
-              </span>
-            </span>
-            <span class="flex items-center gap-2 text-xs font-medium normal-case tracking-normal text-tertiary">
-              <span class="hidden md:inline">{{ selectedFilterOption.description }}</span>
-              <i
-                class="bi bi-chevron-down text-base transition-transform"
-                :class="filtersOpen ? 'rotate-180' : ''"
-                aria-hidden="true"
-              />
-            </span>
-          </summary>
-          <div class="space-y-3 border-t border-tertiary/50 px-4 py-4">
-            <fieldset
-              class="space-y-3"
-              :aria-describedby="serviceTypeFilterDescriptionId"
-            >
-              <legend class="sr-only">
-                {{ $t('services.filters.legend') }}
-              </legend>
-              <p :id="serviceTypeFilterDescriptionId" class="text-xs text-secondary">
-                {{ $t('services.filters.description') }}
-              </p>
-              <div
-                role="radiogroup"
-                :aria-label="$t('services.filters.ariaLabel')"
-                :aria-describedby="serviceTypeFilterDescriptionId"
-                class="flex flex-wrap gap-2"
-              >
-                <button
-                  v-for="option in filterOptions"
-                  :key="option.id"
-                  type="button"
-                  role="radio"
-                  class="inline-flex items-center rounded-full border px-3 py-2 text-xs font-semibold transition focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight"
-                  :class="[
-                    selectedType === option.id
-                      ? 'border-highlight bg-highlight text-background shadow-sm'
-                      : 'border-tertiary/50 bg-transparent text-primary hover:border-highlight/60'
-                  ]"
-                  :aria-checked="selectedType === option.id"
-                  @click="selectedType = option.id"
-                >
-                  <span>{{ option.label }}</span>
-                </button>
-              </div>
-            </fieldset>
-          </div>
-        </details>
+          @select="({ optionId }) => { selectedType = optionId; }"
+        />
       </div>
 
       <div class="space-y-20 pb-20" aria-live="polite" aria-relevant="additions text">
